@@ -38,7 +38,7 @@ export const SHEN_SHA_RULES: Record<ShenShaType, {
     rule: {
       '甲': ['丑', '未'],
       '戊': ['丑', '未'],
-      '庚': ['丑', '未'],
+      '庚': ['寅', '午'],
       '乙': ['子', '申'],
       '己': ['子', '申'],
       '丙': ['亥', '酉'],
@@ -265,12 +265,13 @@ export function getWangShuai(wuxing: WuXing, monthZhi: DiZhi): WangShuai {
 
 /**
  * 获取日柱天干对应的贵人地支
+ * 甲戊兼牛羊，乙己鼠猴乡，丙丁猪鸡位，壬癸兔蛇藏，庚辛逢虎马
  */
 export function getGuiRenZhi(gan: TianGan): DiZhi[] {
   const map: Record<string, DiZhi[]> = {
     '甲': ['丑', '未'],
     '戊': ['丑', '未'],
-    '庚': ['丑', '未'],
+    '庚': ['寅', '午'],
     '乙': ['子', '申'],
     '己': ['子', '申'],
     '丙': ['亥', '酉'],
@@ -377,15 +378,15 @@ export function getShiShen(palacePos: number): DiZhi {
 }
 
 /**
- * 卦身：按卦宫计算
- * 乾→子, 兑→未, 离→卯, 震→午, 巽→亥, 坎→酉, 艮→寅, 坤→巳
+ * 卦身：月卦身算法
+ * 阳世从子上起，阴世从午上起，从初爻顺数至世爻位
+ * @param shiPosition 世爻位置 (1-6)
+ * @param isShiYang 世爻是否为阳
  */
-export function getGuaShen(palace: BaGua): DiZhi {
-  const map: Record<BaGua, DiZhi> = {
-    '乾': '子', '兑': '未', '离': '卯', '震': '午',
-    '巽': '亥', '坎': '酉', '艮': '寅', '坤': '巳',
-  }
-  return map[palace]
+export function getGuaShen(shiPosition: number, isShiYang: boolean): DiZhi {
+  const DIZHI: DiZhi[] = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
+  const startIndex = isShiYang ? 0 : 6  // 阳世从子上起，阴世从午上起
+  return DIZHI[(startIndex + shiPosition - 1) % 12]
 }
 
 /**

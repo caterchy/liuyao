@@ -14,6 +14,10 @@ const props = defineProps<{
   /** 卦宫信息（用于计算世身/卦身） */
   palace?: BaGua
   palacePos?: number
+  /** 世爻位置 (1-6) */
+  shiPosition?: number
+  /** 世爻是否为阳 */
+  isShiYang?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -75,8 +79,8 @@ function formatTermDate(date: Date): string {
 
 // ---- 神煞计算 ----
 const hexagramInfo = computed(() => {
-  if (props.palace && props.palacePos !== undefined) {
-    return { palace: props.palace, palacePos: props.palacePos }
+  if (props.palace && props.palacePos !== undefined && props.shiPosition !== undefined && props.isShiYang !== undefined) {
+    return { palace: props.palace, palacePos: props.palacePos, shiPosition: props.shiPosition, isShiYang: props.isShiYang }
   }
   return undefined
 })
@@ -150,7 +154,7 @@ const visibleShensha = computed(() => {
       </div>
       <!-- 第二行：干支 -->
       <div class="text-sm">
-        <span class="text-gray-500">干支：</span>
+        <span class="text-gray-500">四值：</span>
         <span class="font-medium">{{ bazi.nian.gan }}{{ bazi.nian.zhi }}年
           {{ bazi.yue.gan }}{{ bazi.yue.zhi }}月
           {{ bazi.ri.gan }}{{ bazi.ri.zhi }}日

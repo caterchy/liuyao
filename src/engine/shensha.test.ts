@@ -121,7 +121,7 @@ describe('calcTimeShenSha', () => {
       ri: { gan: '甲' as TianGan, zhi: '申' as DiZhi, wuxing: '木' as const },
       shi: { gan: '庚' as TianGan, zhi: '午' as DiZhi, wuxing: '金' as const },
     }
-    const hexagramInfo = { palace: '乾' as BaGua, palacePos: 0 }
+    const hexagramInfo = { palace: '乾' as BaGua, palacePos: 0, shiPosition: 1, isShiYang: true }
 
     const result = calcTimeShenSha(bazi, hexagramInfo)
     const shiShen = result.find((r) => r.name === '世身')

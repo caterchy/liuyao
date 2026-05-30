@@ -53,7 +53,7 @@ describe('getGuiRenZhi', () => {
     ['丁', ['亥', '酉']],
     ['戊', ['丑', '未']],
     ['己', ['子', '申']],
-    ['庚', ['丑', '未']],
+    ['庚', ['寅', '午']],
     ['辛', ['寅', '午']],
     ['壬', ['卯', '巳']],
     ['癸', ['卯', '巳']],
@@ -182,16 +182,22 @@ describe('getShiShen', () => {
 
 describe('getGuaShen', () => {
   it.each([
-    ['乾', '子'],
-    ['兑', '未'],
-    ['离', '卯'],
-    ['震', '午'],
-    ['巽', '亥'],
-    ['坎', '酉'],
-    ['艮', '寅'],
-    ['坤', '巳'],
-  ] as [string, string][])('palace %s returns %s', (palace, expected) => {
-    expect(getGuaShen(palace as any)).toBe(expected)
+    // 阳世 (yang shi): 从子上起
+    [1, true, '子'],   // 初爻
+    [2, true, '丑'],   // 二爻
+    [3, true, '寅'],   // 三爻
+    [4, true, '卯'],   // 四爻
+    [5, true, '辰'],   // 五爻
+    [6, true, '巳'],   // 上爻
+    // 阴世 (yin shi): 从午上起
+    [1, false, '午'],  // 初爻
+    [2, false, '未'],  // 二爻
+    [3, false, '申'],  // 三爻
+    [4, false, '酉'],  // 四爻
+    [5, false, '戌'],  // 五爻
+    [6, false, '亥'],  // 上爻
+  ] as [number, boolean, string][])('shiPosition %s isShiYang=%s returns %s', (pos, yang, expected) => {
+    expect(getGuaShen(pos, yang)).toBe(expected)
   })
 })
 

@@ -134,7 +134,7 @@ export function buildPaipanResult(yaos: Yao[], time?: Date): PaipanResult {
       const changedAllGans = [changedGanInner, changedGanInner, changedGanInner, changedGanOuter, changedGanOuter, changedGanOuter]
       const changedAllZhis = [...changedZhiInner, ...changedZhiOuter]
 
-      const changedGongWuxing: WuXing = GUA_WU_XING[originalInfo.palace]
+      const changedGongWuxing: WuXing = GUA_WU_XING[changedInfo.palace]
       const changedYaosDetail: YaoDetail[] = changedYaos.map((y, i) => {
         const wuxing = ZHI_WU_XING_NAJA[changedAllZhis[i]]
         return {
@@ -142,7 +142,7 @@ export function buildPaipanResult(yaos: Yao[], time?: Date): PaipanResult {
           yao: y,
           najia: { gan: changedAllGans[i], zhi: changedAllZhis[i] },
           wuxing,
-          liuqin: getLiuQin(changedGongWuxing, wuxing),
+          liuqin: getLiuQin(gongWuxing, wuxing),
           liushou: getLiuShen(bazi.ri.gan, i),
           isShi: i + 1 === changedShi,
           isYing: i + 1 === changedYing,

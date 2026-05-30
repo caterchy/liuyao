@@ -148,6 +148,8 @@ function downloadJson() {
       :readonly="true"
       :palace="result.original.gong"
       :palace-pos="result.original.palacePos"
+      :shi-position="result.original.shiPosition"
+      :is-shi-yang="result.original.yaos[result.original.shiPosition - 1].yao.yang"
     />
     <hr class="divider" />
 

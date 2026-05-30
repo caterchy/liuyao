@@ -84,7 +84,7 @@ export function getShenShaForYao(
  */
 export function calcTimeShenSha(
   bazi: BaZi,
-  hexagramInfo?: { palace: BaGua; palacePos: number },
+  hexagramInfo?: { palace: BaGua; palacePos: number; shiPosition: number; isShiYang: boolean },
 ): TimeShenSha[] {
   const result: TimeShenSha[] = []
 
@@ -143,7 +143,7 @@ export function calcTimeShenSha(
 
   // 11. 卦身 (hexagram-based)
   if (hexagramInfo) {
-    result.push({ name: '卦身', value: getGuaShen(hexagramInfo.palace) })
+    result.push({ name: '卦身', value: getGuaShen(hexagramInfo.shiPosition, hexagramInfo.isShiYang) })
   } else {
     result.push({ name: '卦身', value: '—' })
   }
